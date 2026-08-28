@@ -18,7 +18,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     ordering_fields = ['views', 'created_at']
     
     def get_permissions(self):
-        if self.action in ['list', 'retrieve', 'find_by_ingredients', 'search_spoonacular']:
+        if self.action in ['list', 'retrieve', 'find_by_ingredients', 'search_spoonacular', 'get_spoonacular_details']:
             return [AllowAny()]
         return [IsAuthenticated()]
     
