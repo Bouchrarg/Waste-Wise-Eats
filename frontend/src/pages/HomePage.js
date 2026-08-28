@@ -11,7 +11,12 @@ const HomePage = () => {
     const fetchPopularRecipes = async () => {
       try {
         const response = await recipeService.getMostViewed();
-        setPopularRecipes(response.data.slice(0, 6));
+        const recipes = Array.isArray(response.data)
+          ? response.data
+          : Array.isArray(response.data?.results)
+          ? response.data.results
+          : [];
+        setPopularRecipes(recipes.slice(0, 6));
       } catch (err) {
         console.error('Failed to fetch popular recipes', err);
       } finally {

@@ -45,13 +45,13 @@ const SearchPage = () => {
       const localResponse = await recipeService.findByIngredients(
         ingredients.map(ing => ing.name)
       );
-      setLocalRecipes(localResponse.data);
-      
+      setLocalRecipes(Array.isArray(localResponse.data) ? localResponse.data : []);
+
       // Search Spoonacular API
       const spoonacularResponse = await recipeService.searchSpoonacular(
         ingredients.map(ing => ing.name)
       );
-      setSpoonacularRecipes(spoonacularResponse.data);
+      setSpoonacularRecipes(Array.isArray(spoonacularResponse.data) ? spoonacularResponse.data : []);
     } catch (err) {
       console.error('Failed to search recipes', err);
     } finally {
