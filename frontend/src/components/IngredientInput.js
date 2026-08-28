@@ -16,7 +16,12 @@ const IngredientInput = ({ onAddIngredient }) => {
       setLoading(true);
       try {
         const response = await ingredientService.search(query);
-        setSuggestions(response.data);
+        const results = Array.isArray(response.data)
+          ? response.data
+          : Array.isArray(response.data?.results)
+          ? response.data.results
+          : [];
+        setSuggestions(results);
       } catch (err) {
         console.error('Failed to fetch ingredients', err);
       } finally {
