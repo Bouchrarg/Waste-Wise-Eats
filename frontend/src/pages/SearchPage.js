@@ -103,19 +103,6 @@ const SearchPage = () => {
     recognition.start();
   };
 
-  const displayedRecipes = () => {
-    switch (activeTab) {
-      case 'local':
-        return localRecipes;
-      case 'spoonacular':
-        return spoonacularRecipes;
-      case 'all':
-      default:
-        // Show Spoonacular recipes first, then local
-        return [...spoonacularRecipes, ...localRecipes];
-    }
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6">Search Recipes by Ingredients</h1>
