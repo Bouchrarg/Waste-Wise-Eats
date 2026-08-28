@@ -1,0 +1,21 @@
+# Render Blueprint. In the Render dashboard: New + -> Blueprint, point it at
+# this repo, and it picks up this file. Secrets (sync: false) are entered
+# once in the dashboard, never stored in this file or in git.
+services:
+  - type: web
+    name: waste-wise-eats-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn WWE.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.4
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: SPOONACULAR_API_KEY
+        sync: false
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: waste-wise-eats-backend.onrender.com
